@@ -1,0 +1,174 @@
+/* Design tokens aus Figma */
+.hero {
+  --c-primary-100: #1a3691;
+  --c-primary-125: #132768;
+  --c-secondary-100: #49d8d7;
+  --c-decorative-40: #eceff8;
+  --c-basic-100: #ffffff;
+  --c-basic-0: #000000;
+  --c-korallrot: #ea5965;
+
+  --space-25: 4px;
+  --space-50: 8px;
+  --space-100: 16px;
+  --space-200: 32px;
+  --space-400: 64px;
+
+  font-family: "SI Sans", -apple-system, "Segoe UI", Roboto, sans-serif;
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.hero__headline {
+  font-family: "SI Serif", Georgia, serif;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 40px;
+  margin: 0;
+}
+
+.hero__content-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-200);
+  width: 456px;
+  flex-shrink: 0;
+}
+
+.hero__content-area { display: flex; flex-direction: column; gap: var(--space-100); }
+.hero__title-area { display: flex; flex-direction: column; gap: var(--space-50); }
+.hero__subline { font-weight: 500; font-size: 18px; line-height: 27px; margin: 0; }
+.hero__disturber-line { font-weight: 500; font-size: 16px; line-height: 24px; margin: 0; }
+
+.hero__description-area { display: flex; flex-direction: column; gap: var(--space-100); }
+.hero__copy { font-weight: 400; font-size: 16px; line-height: 24px; margin: 0; }
+
+.hero__list { display: flex; flex-direction: column; gap: var(--space-25); margin: 0; padding: 0; list-style: none; }
+.hero__list-item { display: flex; gap: 12px; align-items: flex-start; font-size: 16px; line-height: 24px; }
+.hero__list-item::before {
+  content: "✓";
+  flex-shrink: 0;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: currentColor;
+  color: inherit;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+  -webkit-text-fill-color: initial;
+}
+.hero__list-item::before { background: transparent; border: 1.5px solid currentColor; }
+
+.hero__meta-row { display: flex; gap: var(--space-100); align-items: center; flex-wrap: wrap; }
+.hero__meta-item { display: flex; gap: var(--space-25); align-items: center; font-size: 14px; line-height: 21px; white-space: nowrap; }
+.hero__meta-icon { width: 12px; height: 12px; display: inline-block; }
+
+.hero__button-row { display: flex; gap: var(--space-100); align-items: center; width: 100%; }
+.hero__btn {
+  min-width: 160px;
+  padding: 12px;
+  border-radius: 4px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  display: inline-block;
+}
+.hero__btn--primary { background: var(--c-secondary-100); color: var(--c-primary-125); }
+.hero__btn--secondary-filled { background: var(--c-primary-100); color: #fff; }
+.hero__btn--tertiary-outline { background: #fff; color: var(--c-primary-100); border-color: var(--c-primary-100); }
+
+.hero__image-col { align-self: stretch; flex-shrink: 0; width: 584px; position: relative; }
+.hero__image { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero__image-placeholder {
+  width: 100%; height: 100%;
+  background: #d9d9d9 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M4 5h16v14H4z" fill="none" stroke="%23999" stroke-width="1.5"/><circle cx="9" cy="10" r="1.5" fill="%23999"/><path d="M4 17l5-5 3 3 4-5 4 5" fill="none" stroke="%23999" stroke-width="1.5"/></svg>') no-repeat center / 40px;
+}
+
+.hero__disturber-badge {
+  position: absolute;
+  top: 32px;
+  left: -15px;
+  background: var(--c-korallrot);
+  color: #fff;
+  padding: var(--space-25) var(--space-50);
+  border-radius: 16px 16px 0 16px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.hero__bridge {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  display: flex;
+  align-items: flex-end;
+}
+.hero__bridge-inner { width: 100%; height: 16px; background: var(--c-secondary-100); }
+
+/* ---------- Variant: Product Hero (Homepage) ---------- */
+.hero--product {
+  min-height: 440px;
+}
+.hero--product .hero__left {
+  background: var(--c-primary-100);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-400) var(--space-400) var(--space-200);
+  align-self: stretch;
+}
+.hero--product .hero__content-col { align-items: flex-end; }
+.hero--product .hero__meta-item,
+.hero--product .hero__copy,
+.hero--product .hero__subline { color: #fff; }
+
+/* ---------- Variant: Article Hero (Content) ---------- */
+.hero--article { min-height: 424px; justify-content: center; }
+.hero--article .hero__left {
+  background: var(--c-decorative-40);
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-200) var(--space-400);
+  align-self: stretch;
+  width: 584px;
+}
+.hero--article .hero__content-col { justify-content: flex-end; width: auto; flex: 1; }
+
+/* ---------- Variant: ADP Hero ---------- */
+.hero--adp { min-height: 424px; }
+.hero--adp .hero__left {
+  background: var(--c-primary-100);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px var(--space-400) var(--space-200);
+  align-self: stretch;
+}
+.hero--adp .hero__content-col { align-items: flex-end; }
+.hero--adp .hero__meta-item,
+.hero--adp .hero__copy,
+.hero--adp .hero__subline,
+.hero--adp .hero__disturber-line { color: #fff; }
+.hero--adp .hero__image-col { background: #d9d9d9; }
+
+/* ---------- Utility ---------- */
+.is-hidden { display: none !important; }
+
+@media (max-width: 900px) {
+  .hero { flex-direction: column; }
+  .hero__content-col, .hero__left { width: 100% !important; }
+  .hero__image-col { width: 100% !important; height: 240px; }
+  .hero__bridge { display: none; }
+}

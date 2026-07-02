@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AEM Author Simulation – Hero Component</title>
+<link rel="stylesheet" href="css/aem-shell.css" />
+<link rel="stylesheet" href="css/hero.css" />
+</head>
+<body>
+
+  <!-- AEM Top Bar (simuliert die Editor-Toolbar) -->
+  <header class="aem-topbar">
+    <div class="aem-topbar__brand">
+      <span class="aem-logo">AEM</span>
+      <span class="aem-topbar__path">/content/si-de/de/home &nbsp;·&nbsp; Seiten-Editor (Simulation)</span>
+    </div>
+    <div class="aem-topbar__actions">
+      <button id="btnPreview" class="aem-btn aem-btn--ghost" type="button">Vorschau</button>
+      <button class="aem-btn aem-btn--primary" type="button" disabled title="Nur Demo">Veröffentlichen</button>
+    </div>
+  </header>
+
+  <div class="aem-layout">
+
+    <!-- Canvas: Seite mit Hero-Komponente -->
+    <main class="aem-canvas" id="aemCanvas">
+      <div class="aem-page">
+        <div class="aem-component" id="heroWrapper" tabindex="0">
+          <div class="aem-component__overlay">
+            <span class="aem-component__label">Hero Component</span>
+            <button class="aem-component__edit" id="btnEditHero" type="button" title="Komponente konfigurieren">✎ Konfigurieren</button>
+          </div>
+          <div id="heroRoot"></div>
+        </div>
+
+        <div class="aem-component aem-component--placeholder">
+          <div class="aem-component__overlay aem-component__overlay--static">
+            <span class="aem-component__label">Weitere Komponente (Platzhalter)</span>
+          </div>
+          <div class="aem-placeholder-block"></div>
+        </div>
+      </div>
+    </main>
+
+    <!-- AEM Dialog Panel (rechte Seitenleiste, wie das Komponenten-Dialogfenster) -->
+    <aside class="aem-dialog" id="aemDialog" aria-label="Komponenten-Dialog">
+      <div class="aem-dialog__header">
+        <h2>Hero – Eigenschaften</h2>
+        <p class="aem-dialog__subtitle">Konfiguration der Komponente, wie im AEM-Autorendialog</p>
+      </div>
+
+      <nav class="aem-dialog__tabs" id="dialogTabs">
+        <button class="aem-dialog__tab is-active" data-tab="content">Inhalt</button>
+        <button class="aem-dialog__tab" data-tab="elements">Elemente</button>
+        <button class="aem-dialog__tab" data-tab="links">Links / CTA</button>
+        <button class="aem-dialog__tab" data-tab="image">Bild</button>
+      </nav>
+
+      <div class="aem-dialog__body">
+
+        <!-- TAB: Inhalt -->
+        <section class="aem-dialog__panel is-active" data-panel="content">
+
+          <div class="aem-field">
+            <label for="fieldVariant">Hero-Variante</label>
+            <select id="fieldVariant" class="aem-select">
+              <option value="product">Homepage / Product Hero</option>
+              <option value="article">Content / Article Hero</option>
+              <option value="adp">ADP Hero</option>
+            </select>
+            <p class="aem-field__hint">Bestimmt Layout, Hintergrundfarbe und verfügbare Bausteine.</p>
+          </div>
+
+          <div class="aem-field">
+            <label for="fieldDisturberText">Störer-Text</label>
+            <input type="text" id="fieldDisturberText" class="aem-input" value="Disturber line" />
+            <label class="aem-checkbox">
+              <input type="checkbox" id="fieldShowDisturber" checked />
+              <span>Störer anzeigen</span>
+            </label>
+          </div>
+
+          <div class="aem-field">
+            <label for="fieldHeadline">Headline</label>
+            <input type="text" id="fieldHeadline" class="aem-input" value="Headline" />
+          </div>
+
+          <div class="aem-field">
+            <label for="fieldSubline">Subline</label>
+            <input type="text" id="fieldSubline" class="aem-input" value="Subline" />
+            <label class="aem-checkbox">
+              <input type="checkbox" id="fieldShowSubline" checked />
+              <span>Subline anzeigen</span>
+            </label>
+          </div>
+
+          <div class="aem-field">
+            <label for="fieldCopy">Copy</label>
+            <textarea id="fieldCopy" class="aem-textarea" rows="3">Copy</textarea>
+            <label class="aem-checkbox">
+              <input type="checkbox" id="fieldShowCopy" checked />
+              <span>Copy anzeigen</span>
+            </label>
+          </div>
+
+        </section>
+
+        <!-- TAB: Elemente -->
+        <section class="aem-dialog__panel" data-panel="elements">
+
+          <div class="aem-field">
+            <label class="aem-checkbox">
+              <input type="checkbox" id="fieldShowList" checked />
+              <span>Liste anzeigen</span>
+            </label>
+            <div id="listItemsContainer" class="aem-list-editor"></div>
+            <button type="button" id="btnAddListItem" class="aem-btn aem-btn--small">+ Listenpunkt</button>
+          </div>
+
+          <div class="aem-field">
+            <label class="aem-checkbox">
+              <input type="checkbox" id="fieldShowAdditionalRow" checked />
+              <span>Meta-Zeile anzeigen (Autor / Datum / Lesezeit)</span>
+            </label>
+          </div>
+
+          <div class="aem-subfield">
+            <label class="aem-checkbox">
+              <input type="checkbox" id="fieldShowAuthor" checked />
+              <span>Autor anzeigen</span>
+            </label>
+            <input type="text" id="fieldAuthor" class="aem-input" value="David Bläsing" />
+          </div>
+
+          <div class="aem-subfield">
+            <label class="aem-checkbox">
+              <input type="checkbox" id="fieldShowUpdate" checked />
+              <span>Datum anzeigen</span>
+            </label>
+            <input type="text" id="fieldUpdateDate" class="aem-input" value="02.01. 2024" />
+          </div>
+
+          <div class="aem-subfield">
+            <label class="aem-checkbox">
+              <input type="checkbox" id="fieldShowReadingTime" checked />
+              <span>Lesezeit anzeigen</span>
+            </label>
+            <input type="text" id="fieldReadingTime" class="aem-input" value="5 Min Lesezeit" />
+          </div>
+
+        </section>
+
+        <!-- TAB: Links / CTA -->
+        <section class="aem-dialog__panel" data-panel="links">
+
+          <div class="aem-field">
+            <label class="aem-checkbox">
+              <input type="checkbox" id="fieldShowButtonRow" checked />
+              <span>Button-Zeile anzeigen</span>
+            </label>
+          </div>
+
+          <div class="aem-subfield">
+            <label class="aem-checkbox">
+              <input type="checkbox" id="fieldShowPrimary" checked />
+              <span>Primär-Button anzeigen</span>
+            </label>
+            <input type="text" id="fieldPrimaryLabel" class="aem-input" value="Action" />
+            <input type="text" id="fieldPrimaryLink" class="aem-input aem-input--url" placeholder="Link-URL (z.B. /de/produkte)" />
+          </div>
+
+          <div class="aem-subfield" id="secondaryButtonField">
+            <label class="aem-checkbox">
+              <input type="checkbox" id="fieldShowSecondary" checked />
+              <span id="secondaryLabelText">Sekundär-Button anzeigen</span>
+            </label>
+            <input type="text" id="fieldSecondaryLabel" class="aem-input" value="Action" />
+            <input type="text" id="fieldSecondaryLink" class="aem-input aem-input--url" placeholder="Link-URL" />
+          </div>
+
+        </section>
+
+        <!-- TAB: Bild -->
+        <section class="aem-dialog__panel" data-panel="image">
+          <div class="aem-field">
+            <label for="fieldImageUrl">Bild-URL</label>
+            <input type="text" id="fieldImageUrl" class="aem-input" placeholder="https://…" />
+            <p class="aem-field__hint">In echtem AEM: Asset-Auswahl über die DAM-Asset-Picker-Komponente.</p>
+          </div>
+          <div class="aem-field" id="imageAltRow">
+            <label for="fieldImageAlt">Alternativtext</label>
+            <input type="text" id="fieldImageAlt" class="aem-input" placeholder="Beschreibung für Barrierefreiheit" />
+          </div>
+        </section>
+
+      </div>
+
+      <div class="aem-dialog__footer">
+        <button class="aem-btn aem-btn--ghost" id="btnReset" type="button">Zurücksetzen</button>
+        <button class="aem-btn aem-btn--primary" id="btnApply" type="button">Übernehmen</button>
+      </div>
+    </aside>
+
+  </div>
+
+  <script src="js/hero-render.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

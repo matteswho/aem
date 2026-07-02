@@ -1,0 +1,212 @@
+:root {
+  --aem-blue: #1473e6;
+  --aem-dark: #2c2c2c;
+  --aem-panel-bg: #ffffff;
+  --aem-panel-border: #d5d5d5;
+  --aem-text: #2c2c2c;
+  --aem-text-muted: #6e6e6e;
+  --aem-accent: #1473e6;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--aem-text);
+  background: #f4f4f4;
+}
+
+/* ---------- Top bar ---------- */
+.aem-topbar {
+  height: 48px;
+  background: #2c2c2c;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  font-size: 13px;
+}
+.aem-topbar__brand { display: flex; align-items: center; gap: 12px; }
+.aem-logo {
+  font-weight: 700;
+  background: var(--aem-blue);
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+.aem-topbar__path { color: #bdbdbd; }
+.aem-topbar__actions { display: flex; gap: 8px; }
+
+.aem-btn {
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 7px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.aem-btn--primary { background: var(--aem-blue); color: #fff; }
+.aem-btn--primary:disabled { opacity: 0.5; cursor: not-allowed; }
+.aem-btn--ghost { background: transparent; border-color: #8c8c8c; color: #fff; }
+.aem-btn--small { background: #eef3fb; color: var(--aem-blue); border-color: #cfe0f7; padding: 5px 10px; font-size: 12px; }
+
+/* ---------- Layout ---------- */
+.aem-layout { display: flex; height: calc(100vh - 48px); }
+.aem-canvas { flex: 1; overflow-y: auto; padding: 32px; }
+.aem-page {
+  max-width: 1168px;
+  margin: 0 auto;
+  background: #fff;
+  box-shadow: 0 0 0 1px #e2e2e2;
+}
+
+/* ---------- Editable component overlay (AEM look) ---------- */
+.aem-component {
+  position: relative;
+  outline: 2px dashed transparent;
+  transition: outline-color 0.15s ease;
+}
+.aem-component:hover,
+.aem-component:focus-within {
+  outline-color: var(--aem-accent);
+}
+.aem-component__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--aem-accent);
+  color: #fff;
+  font-size: 11px;
+  padding: 3px 8px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-100%);
+  z-index: 5;
+}
+.aem-component:hover .aem-component__overlay,
+.aem-component:focus-within .aem-component__overlay,
+.aem-component.is-active .aem-component__overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+.aem-component__overlay--static { background: #8c8c8c; }
+.aem-component__label { font-weight: 600; letter-spacing: 0.3px; }
+.aem-component__edit {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.6);
+  color: #fff;
+  border-radius: 3px;
+  padding: 2px 8px;
+  font-size: 11px;
+  cursor: pointer;
+}
+.aem-component__edit:hover { background: rgba(255,255,255,0.3); }
+
+.aem-component--placeholder { margin-top: 2px; }
+.aem-placeholder-block {
+  height: 160px;
+  background: repeating-linear-gradient(45deg, #f0f0f0, #f0f0f0 10px, #f7f7f7 10px, #f7f7f7 20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+  font-size: 13px;
+}
+
+/* ---------- Dialog panel ---------- */
+.aem-dialog {
+  width: 380px;
+  background: var(--aem-panel-bg);
+  border-left: 1px solid var(--aem-panel-border);
+  display: flex;
+  flex-direction: column;
+}
+.aem-dialog__header { padding: 16px 20px 8px; border-bottom: 1px solid #eee; }
+.aem-dialog__header h2 { margin: 0 0 4px; font-size: 16px; }
+.aem-dialog__subtitle { margin: 0 0 12px; font-size: 12px; color: var(--aem-text-muted); }
+
+.aem-dialog__tabs { display: flex; border-bottom: 1px solid #eee; padding: 0 12px; }
+.aem-dialog__tab {
+  background: none;
+  border: none;
+  padding: 10px 10px;
+  font-size: 12.5px;
+  cursor: pointer;
+  color: var(--aem-text-muted);
+  border-bottom: 2px solid transparent;
+}
+.aem-dialog__tab.is-active { color: var(--aem-blue); border-bottom-color: var(--aem-blue); font-weight: 600; }
+
+.aem-dialog__body { flex: 1; overflow-y: auto; padding: 16px 20px; }
+.aem-dialog__panel { display: none; }
+.aem-dialog__panel.is-active { display: block; }
+
+.aem-field { margin-bottom: 18px; }
+.aem-field label { display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 6px; }
+.aem-field__hint { font-size: 11px; color: var(--aem-text-muted); margin: 4px 0 0; }
+.aem-subfield {
+  margin-bottom: 14px;
+  padding: 10px 10px 12px;
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 4px;
+}
+.aem-subfield .aem-input { margin-top: 8px; }
+
+.aem-input, .aem-select, .aem-textarea {
+  width: 100%;
+  padding: 7px 9px;
+  border: 1px solid #c9c9c9;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: inherit;
+}
+.aem-input--url { margin-top: 6px; }
+.aem-textarea { resize: vertical; }
+
+.aem-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 4px;
+}
+.aem-checkbox input { width: 15px; height: 15px; }
+
+.aem-list-editor { display: flex; flex-direction: column; gap: 6px; margin: 10px 0; }
+.aem-list-editor__row { display: flex; gap: 6px; }
+.aem-list-editor__row input { flex: 1; }
+.aem-list-editor__remove {
+  background: #fdecec;
+  color: #c53030;
+  border: 1px solid #f3c4c4;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 28px;
+}
+
+.aem-dialog__footer {
+  padding: 12px 20px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.aem-dialog__footer .aem-btn--ghost { background: #fff; border-color: #c9c9c9; color: var(--aem-text); }
+.aem-dialog__footer .aem-btn--primary { background: var(--aem-blue); color: #fff; }
+
+/* ---------- Preview mode ---------- */
+body.is-preview .aem-component { outline: none !important; }
+body.is-preview .aem-component__overlay { display: none !important; }
+body.is-preview .aem-canvas { padding: 0; }
+body.is-preview .aem-page { max-width: none; box-shadow: none; }
+.aem-dialog.is-hidden { display: none; }
